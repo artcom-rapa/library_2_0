@@ -1,0 +1,83 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="DuplicatedInspection" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="10">
+            <item index="0" class="java.lang.String" itemvalue="w780" />
+            <item index="1" class="java.lang.String" itemvalue="w185" />
+            <item index="2" class="java.lang.String" itemvalue="popular" />
+            <item index="3" class="java.lang.String" itemvalue="latest" />
+            <item index="4" class="java.lang.String" itemvalue="now_playing" />
+            <item index="5" class="java.lang.String" itemvalue="list_type" />
+            <item index="6" class="java.lang.String" itemvalue="selected_list" />
+            <item index="7" class="java.lang.String" itemvalue="w500" />
+            <item index="8" class="java.lang.String" itemvalue="homepage" />
+            <item index="9" class="java.lang.String" itemvalue="{{url_for(" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="7">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="th" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="InstalledPackageInspection" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="9">
+            <item index="0" class="java.lang.String" itemvalue="lazy-object-proxy" />
+            <item index="1" class="java.lang.String" itemvalue="six" />
+            <item index="2" class="java.lang.String" itemvalue="colorama" />
+            <item index="3" class="java.lang.String" itemvalue="mccabe" />
+            <item index="4" class="java.lang.String" itemvalue="pylint" />
+            <item index="5" class="java.lang.String" itemvalue="wrapt" />
+            <item index="6" class="java.lang.String" itemvalue="isort" />
+            <item index="7" class="java.lang.String" itemvalue="astroid" />
+            <item index="8" class="java.lang.String" itemvalue="toml" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N806" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="TODOS.app.forms" />
+          <option value="TODOS.app.models" />
+          <option value="Library.libraryform_app.forms" />
+          <option value="Library.libraryform_app.models" />
+          <option value="Library.app.forms" />
+          <option value="TODO_SQLite.app.forms" />
+          <option value="models.todos_p" />
+          <option value="models.*" />
+          <option value="tmdb_client" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="ReferenceExistsInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="UnusedInspection" enabled="true" level="WARNING" enabled_by_default="true" />
+  </profile>
+</component>
