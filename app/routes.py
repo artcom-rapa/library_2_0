@@ -1,17 +1,14 @@
 # app/roues.py
 
-from flask import Flask, request, render_template, redirect, url_for
+from flask import request, render_template, redirect, url_for
 
-from app import db
+from app import db, app
 from app.forms import BookForm, AuthorForm
 from app.models import books, Author
 
-app = Flask(__name__)
-app.config["SECRET_KEY"] = "ninininini"
-
 
 @app.route("/", methods=["GET", "POST"])
-def index():
+def site_index():
     return redirect(url_for("book_list"))
 
 
@@ -31,8 +28,6 @@ def book_list():
 
 @app.route("/books/<int:book_id>/", methods=["GET", "POST"])
 def book_details(book_id):
-    def __init__():
-        pass
 
     book = books.get(book_id - 1)
     form = BookForm(data=book)
@@ -54,8 +49,6 @@ def author_details(author_id):
     a = Author.query.filter_by(name=author_id).first()
     if a is None:
         return "Author unknown!"
-
-
 
     author_dict = {
         'name': a.name,

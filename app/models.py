@@ -5,40 +5,36 @@ from sqlalchemy import create_engine
 
 
 class Author(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    author_name = db.Column(db.String(100), index=True, unique=True)
-    biography = db.Column(db.String(200))
+    def __init__(self):
+        self.author = []
 
-    books_a = db.relationship("Book", backref="author", lazy="dynamic")
-    books_r = db.relationship("AuthorsBooks", backref="author", lazy="dynamic")
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), index=True, unique=True)
+    biography = db.Column(db.String(1000), index=True)
 
     def __str__(self):
-        return f"<Author: {self.id} {self.author_name}>"
+        return f"<Author: {self.id} {self.author}>"
+
+
+authors = db.Table("authors",
+                   db.Column('author_id', db.Integer,
+                             db.ForeignKey('author.id'), primary_key=True),
+                   db.Column('book_id', db.Integer,
+                             db.ForeignKey('book.id'), primary_key=True)
+                   )
 
 
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.Text, index=True)
+    title = db.Column(db.Text, index=True, nullable=False)
     description = db.Column(db.Text)
-    author_id = db.Column(db.Integer, db.ForeignKey('author.id'))
     rented_id = db.Column(db.Integer, db.ForeignKey('rented.id'))
 
-    authors = db.relationship("AuthorsBooks", backref="book", lazy="dynamic")
+    authors = db.relationship('Author', secondary=authors, lazy='subquery',
+                              backref=db.backref('books', lazy=True))
 
     def __str__(self):
-        return f"<Book: {self.id} {self.title[:50]}...>"
-
-
-class AuthorsBooks(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.Integer, db.ForeignKey('author.id'))
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id'))
-
-    def __str__(self):
-        return f"<AuthorsBooks: {self.author_id} {self.book_id}...>"
-
-
-authors_book = AuthorsBooks()
+        return f"<Book: {self.id} {self.title}...>"
 
 
 class Rented(db.Model):
@@ -56,7 +52,7 @@ class Books:
         self.books = []
 
     def all(self):
-        list_books = []
+        list_elements = []
         all_books = Book.query.all()
         for book in all_books:
             list_book = {}
@@ -70,8 +66,8 @@ class Books:
                 list_book['rented'] = 'rented'
             else:
                 list_book['rented'] = 'available'
-            list_books.append(list_book)
-        return list_books
+            list_elements.append(list_book)
+        return list_elements
 
     def get(self, id):
         return self.all()[id]
@@ -82,11 +78,11 @@ class Books:
         max_book_index = 0
         for a_book in all_books:
             max_book_index = max(max_book_index, a_book.id)
-        book = Book()
-        book.id = max_book_index + 1
-        book.title = data['title']
-        book.author = data['author']
-        book.description = data['description']
+        the_book = Book()
+        the_book.id = max_book_index + 1
+        the_book.title = data['title']
+        the_book.author = data['author']
+        the_book.description = data['description']
 
         all_rented = Rented.query.all()
         new_rented = Rented()
@@ -95,7 +91,7 @@ class Books:
             max_rented_index = max(max_rented_index, rented.id)
         new_rented.id = max_rented_index + 1
         new_rented.rented_status = 0 if data['rented'] is False else 1
-        book.rented_id = new_rented.id
+        the_book.rented_id = new_rented.id
 
         all_authors = Author.query.all()
         b_author = Author()
@@ -109,12 +105,12 @@ class Books:
 
         for author in all_authors:
             if b_author.name == author.name:
-                author_book = authors_book.insert().values(author_id=author.id,
-                                                           book_id=the_book.id)
+                author_book = authors.insert().values(author_id=author.id,
+                                                      book_id=the_book.id)
                 author_already_existed = True
         if author_already_existed is False:
-            author_book = authors_book.insert().values(author_id=b_author.id,
-                                                       item_id=the_book.id)
+            author_book = authors.insert().values(author_id=b_author.id,
+                                                  item_id=the_book.id)
             db.session.add(b_author)
 
         engine = create_engine('sqlite:///library.db', echo=True)
@@ -123,7 +119,7 @@ class Books:
         conn.execute(author_book)
 
         db.session.add(new_rented)
-        db.session.add(book)
+        db.session.add(the_book)
         db.session.commit()
 
     def update(self, id, data):
@@ -142,7 +138,6 @@ class Books:
         db.session.commit()
 
     def delete(self, id):
-        data.pop('csrf_token')
         the_book = Book.query.all()[id]
         rented = Rented().query.get(the_book.rented_id)
 
