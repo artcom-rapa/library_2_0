@@ -8,13 +8,12 @@ from app.models import books, Author
 
 
 @app.route("/", methods=["GET", "POST"])
-def site_index():
+def index():
     return redirect(url_for("book_list"))
 
 
 @app.route("/books/", methods=["GET", "POST"])
 def book_list():
-    books.all()
     form = BookForm()
     error = ""
     if request.method == "POST":
@@ -23,7 +22,7 @@ def book_list():
         return redirect(url_for("books_list"))
 
     return render_template("books.html", form=form,
-                           books=books, error=error)
+                           books=books.all(), error=error)
 
 
 @app.route("/books/<int:book_id>/", methods=["GET", "POST"])
@@ -64,7 +63,7 @@ def author_details(author_id):
             db.session.commit()
 
         return redirect(url_for("books_list"))
-    return render_template("author.html", form=form, author_name=author_id)
+    return render_template("author.html", form=form, author=author_id)
 
 
 if __name__ == "__main__":

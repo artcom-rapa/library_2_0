@@ -1,9 +1,9 @@
 body {
-    background: linear-gradient(54deg, rgba(87,87,87,1) 0%, rgba(138,152,151,1) 42%, rgba(156,136,38,1) 85%, rgba(213,204,185,1) 100%);
-    color: rgb(255, 255, 255);
+    background: linear-gradient(45deg, #051e1e, #9daea5); #9daea5;
+    color: #CCD9D2;
     height: 100vh;
 }
-
+#02090b
 
 
 .a13{
@@ -35,7 +35,7 @@ left:40%;
 }
 
 h2 {
-    font-family: 'Sora', sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 td,
@@ -44,5 +44,5 @@ font-family: Arial, Helvetica, sans-serif;
 }
 
 td a {
-color: #fff;    
-}
+color: #fff;
+}}

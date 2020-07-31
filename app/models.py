@@ -55,10 +55,7 @@ class Books:
         list_elements = []
         all_books = Book.query.all()
         for book in all_books:
-            list_book = {}
-            list_book['id'] = book.id
-            list_book['title'] = book.title
-            list_book['description'] = book.description
+            list_book = {'id': book.id, 'title': book.title, 'description': book.description}
             for author in book.authors:
                 list_book['author'] = author.name
             rented = Rented.query.get(book.rented_id).rented_status

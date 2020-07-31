@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <title>Book Edition</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;500&display=swap" rel="stylesheet">
 </head>
 <body>
+
+
+
+
+
     <div class="container">
+        <h2><a href="/books/">Library Collection</a></h2>
     <h2> Update details: </h2>
-    <form method="POST" action="/items/{{ item_id }}/">
+    <form method="POST" action="/books/{{ book_id }}/">
         {{ form.hidden_tag() }}
         <div class="content_a">
          <table>
@@ -21,7 +26,7 @@
             {% endfor %}
         </table>
         </div>
-        <h4>Delete above item: </h4>
+        <h4>Delete above book: </h4>
         <input type="checkbox" name="delete">
         <br><br>
         <input type="submit" value="Enter">

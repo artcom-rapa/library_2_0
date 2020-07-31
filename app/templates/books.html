@@ -4,65 +4,64 @@
     <meta charset="UTF-8">
     <title>Library Collection</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet">
+    <style>
+        table, th, tr, td {border: 1px solid black;}
+
+
+    </style>
 </head>
 <body>
-    <div class="container">
-       
-            <div class="header_label"><h2>HOME LIBRARY 2.0</h2></div>
-            <br>    
-            <br>    
-            <br>    
-            <div class="content">
-            <table>
-                <thead>
-                    <th>Media type</th>
-                    <th>Author</th>
-                    <th>Title</th>
-                    <th>Opinion</th>
-                    <th>Status</th>
-                </thead>
-    
-{% for item in items %}
-<tr>
-    <td>{{ item.media }}</td>
-    <td><a href="/author/{{book.author}}">{{ book.author }}</a></td>
-    <td><a href="/books/{{ loop.index }}">{{ book.title }}</a></td>
-        <td>{{ book.description }}</td>
-        <td>{{ book.rented }}</td>
-    </tr>
-{% endfor %}
-</table>
-<div>
-   
+<div class="container">
+
+    <div class="header_label"><h2>HOME LIBRARY 2.0</h2></div>
     <br>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h2> Add book to library: </h2>
-    <form method="POST" action="/items/">
-        {{ form.hidden_tag() }}
+    <div class="content">
         <table>
-            {% for field in form if field.widget.input_type != 'hidden' %}
-                <tr>
-                    <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
-                    <td>{{ field }}</td>
-                </tr>
+            <thead>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            </thead>
+
+            {% for book in books %}
+            <tr>
+                <td><a href="/author/{{book.author}}">{{ book.author }}</a></td>
+                <td><a href="/books/{{ loop.index }}">{{ book.title }}</a></td>
+                <td>{{ book.description }}</td>
+                <td>{{ book.rented }}</td>
+            </tr>
             {% endfor %}
-        </table>
-        <input type="submit" value="Enter">
-    </form>
-</div>
+             </table>
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div>
+                <h2> Add book to library: </h2>
+                <form method="POST" action="/books/">
+                    {{ form.hidden_tag() }}
+                    <table>
+                        {% for field in form if field.widget.input_type != 'hidden' %}
+                        <tr>
+                            <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
+                            <td>{{ field }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <input type="submit" value="Enter">
+                </form>
+            </div>
+    </div>
 </body>
 </html> 
